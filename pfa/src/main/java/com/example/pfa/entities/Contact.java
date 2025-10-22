@@ -32,6 +32,15 @@ public class Contact {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     
+    @Column(name = "ai_summary", columnDefinition = "TEXT")
+    private String aiSummary;
+    
+    @Column(name = "suggested_reply", columnDefinition = "TEXT")
+    private String suggestedReply;
+    
+    @Column(name = "message_category")
+    private String messageCategory;
+    
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
