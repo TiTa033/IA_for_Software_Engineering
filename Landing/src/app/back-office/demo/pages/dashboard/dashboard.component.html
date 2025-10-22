@@ -1,0 +1,77 @@
+<div class="container">
+  <!-- Add/Update Packaging Form -->
+  <div class="form-container">
+    <h2>{{ isEditMode ? 'Update' : 'Add New' }} Packaging</h2>
+    <form (ngSubmit)="addOrUpdatePackaging()">
+      <div class="input-group">
+        <label for="name">Packaging Name:</label>
+        <input id="name" type="text" [(ngModel)]="packaging.name" name="name" required />
+      </div>
+
+      <div class="input-group">
+        <label for="capacity">Capacity:</label>
+        <select id="capacity" [(ngModel)]="packaging.capacity" name="capacity" required>
+          <option value="I_250_ML">250mL</option>
+          <option value="II_500_ML">500mL</option>
+          <option value="III_750_ML">750mL</option>
+          <option value="IV_1_L">1L</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="color">Color:</label>
+        <input id="color" type="text" [(ngModel)]="packaging.color" name="color" required />
+      </div>
+
+      <div class="input-group">
+        <label for="price">Price:</label>
+        <input id="price" type="number" [(ngModel)]="packaging.price" name="price" min="0" required />
+      </div>
+
+      <div class="input-group">
+        <label for="image">Image:</label>
+        <input id="image" type="file" (change)="onFileSelected($event)" />
+      </div>
+
+      <button type="submit" class="btn-submit">
+        {{ isEditMode ? 'Update Packaging' : 'Add Packaging' }}
+      </button>
+      <button type="button" class="btn-cancel" *ngIf="isEditMode" (click)="resetForm()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Packaging List -->
+  <div class="packaging-list">
+    <h2>Available Packaging</h2>
+    <div class="packaging-item" *ngFor="let packaging of filteredPackagings">
+      <div class="item-details">
+        <img
+          *ngIf="packaging.imageUrl"
+          [src]="'http://localhost:8089/pfa/pfaController/images/' + packaging.imageUrl"
+          alt="{{ packaging.name }} Image"
+          class="packaging-image"
+        />
+        <div class="item-info">
+          <h3>{{ packaging.name }}</h3>
+          <p><strong>Capacity:</strong> {{ getFormattedCapacity(packaging.capacity) }}</p>
+          <p><strong>Color:</strong> {{ packaging.color }}</p>
+          <p><strong>Price:</strong> ${{ packaging.price }}</p>
+        </div>
+      </div>
+      <button class="btn-view" (click)="showDetails(packaging.id)">View Details</button>
+      <button class="btn-delete" (click)="deletePackaging(packaging.id)">Delete</button>
+      <button class="btn-update" (click)="editPackaging(packaging)">Update</button>
+    </div>
+  </div>
+
+  <!-- Packaging Details Modal -->
+  <div class="modal" *ngIf="selectedPackaging">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <h2>{{ selectedPackaging.name }} Details</h2>
+      <p><strong>Capacity:</strong> {{ getFormattedCapacity(selectedPackaging.capacity) }}</p>
+      <p><strong>Color:</strong> {{ selectedPackaging.color }}</p>
+      <p><strong>Price:</strong> ${{ selectedPackaging.price }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,165 @@
+<!-- START FEATURES -->
+<section class="section" id="features">
+  <div class="container">
+    <!-- Header -->
+    <div class="row justify-content-center">
+      <div class="col-lg-6 text-center mb-5">
+        <h3>Product Features</h3>
+        <p class="text-muted">
+          Discover our range of packaging solutions, designed to meet all your needs with style and practicality.
+        </p>
+      </div>
+    </div>
+
+    <!-- Show/Hide Filters Button -->
+    <div class="row mb-3">
+      <div class="col-md-6 offset-md-3 text-center">
+        <button class="btn btn-outline-primary" (click)="toggleFilters()">
+          {{ filtersVisible ? 'Hide Filters' : 'Show Filters' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Filters (Hidden or Shown Based on filtersVisible) -->
+    <div *ngIf="filtersVisible">
+      <!-- Price Filter -->
+      <!-- Search by Name -->
+      <div class="row mb-4">
+        <div class="col-md-6 offset-md-3 text-center">
+          <input
+            type="text"
+            id="searchName"
+            class="form-control"
+            placeholder="Enter packaging name"
+            [(ngModel)]="searchTerm"
+            (input)="filterByPrice()"
+          />
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-md-6 offset-md-3 text-center">
+          <label for="priceRange" class="form-label fw-bold fs-5">Filter by Max Price</label>
+          <div class="d-flex align-items-center justify-content-center gap-3">
+            <span class="text-muted">€0</span>
+            <input
+              type="range"
+              class="form-range custom-slider"
+              id="priceRange"
+              min="0"
+              max="100"
+              [(ngModel)]="maxPrice"
+              (change)="filterByPrice()"
+              style="width: 70%;"
+            />
+            <span class="text-muted">€100</span>
+          </div>
+          <div class="mt-3 d-flex justify-content-center align-items-center gap-2">
+            <span class="fw-semibold">Enter Price:</span>
+            <input
+              type="number"
+              class="form-control form-control-sm"
+              style="width: 100px;"
+              min="0"
+              max="100"
+              [(ngModel)]="maxPrice"
+              (change)="filterByPrice()"
+            />
+          </div>
+          <div class="mt-2">
+            <span class="badge bg-primary fs-6">Current Max: €{{ maxPrice }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <div class="col-md-6 offset-md-3 text-center">
+          <label for="capacityFilter" class="form-label fw-bold fs-5">Filter by Capacity</label>
+          <select
+            class="form-select"
+            id="capacityFilter"
+            [(ngModel)]="selectedCapacityFilter"
+            (change)="filterByCapacity()"
+          >
+            <option value="">All Capacities</option>
+            <option value="250mL">250mL</option>
+            <option value="500mL">500mL</option>
+            <option value="750mL">750mL</option>
+            <option value="1L">1L</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Display all packaging -->
+    <div class="row">
+      <div *ngFor="let packaging of filteredPackagings" class="col-lg-4 col-md-6 mb-4">
+        <div class="card shadow-sm border-0">
+          <div class="card-body p-4">
+            <!-- Image Section -->
+            <div class="d-flex justify-content-center mb-4">
+              <img
+                *ngIf="packaging.imageUrl"
+                [src]="'http://localhost:8089/pfa/pfaController/images/' + packaging.imageUrl"
+                alt="Packaging Image"
+                class="img-fluid rounded-3"
+                style="max-height: 250px; width: auto; object-fit: contain;"
+              />
+            </div>
+
+            <!-- Packaging Details -->
+            <div class="text-center">
+              <h5 class="mb-3">{{ packaging.name }}</h5>
+              <p class="text-muted">
+                Capacity: {{ getFormattedCapacity(packaging.capacity) }} |
+                Color: {{ packaging.color }} |
+                Price: €{{ packaging.price }}
+              </p>
+            </div>
+
+            <!-- View Details Button -->
+            <div class="text-center mt-3">
+              <button class="btn btn-outline-primary btn-sm" (click)="showDetails(packaging.id)">
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Packaging Details -->
+  <div
+    class="modal fade show d-block"
+    *ngIf="selectedPackaging"
+    tabindex="-1"
+    role="dialog"
+    style="background: rgba(0, 0, 0, 0.5);"
+  >
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content p-4">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ selectedPackaging.name }}</h5>
+          <button type="button" class="btn-close" aria-label="Close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body text-center">
+          <img
+            *ngIf="selectedPackaging.imageUrl"
+            [src]="'http://localhost:8089/pfa/pfaController/images/' + selectedPackaging.imageUrl"
+            alt="Packaging Image"
+            class="img-fluid mb-3"
+            style="max-height: 300px; object-fit: contain;"
+          />
+          <p><strong>Capacity:</strong> {{ getFormattedCapacity(selectedPackaging.capacity) }}</p>
+          <p><strong>Color:</strong> {{ selectedPackaging.color }}</p>
+          <p><strong>Price:</strong> €{{ selectedPackaging.price }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END FEATURES -->
