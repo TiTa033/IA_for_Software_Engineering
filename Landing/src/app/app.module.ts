@@ -16,6 +16,8 @@ import { HeaderComponent } from "./layout/header/header.component";
 import { FooterComponent } from "./layout/footer/footer.component";
 import { CommonModule } from '@angular/common';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { MaterialPredictorComponent } from './material-predictor/material-predictor.component';
+
 
 
 //export function kcFactory(kcService: KeycloakService) {
@@ -26,7 +28,9 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
   declarations: [
     AppComponent,
     LoginComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
+    MaterialPredictorComponent,  // 👈 ajoute-le ici
+
   ],
   imports: [
     BrowserModule,

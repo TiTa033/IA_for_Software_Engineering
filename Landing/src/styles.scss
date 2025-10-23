@@ -131,3 +131,63 @@
 
   }
 }
+/* Bouton flottant */
+.gear-btn {
+  position: fixed;
+  left: 12px;
+  top: 40%;
+  z-index: 1001;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: none;
+  background: #444;
+  color: #fff;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* Panneau latéral */
+.ai-drawer {
+  position: fixed;
+  left: -380px;
+  top: 0;
+  bottom: 0;
+  width: 360px;
+  background: #fff;
+  box-shadow: 2px 0 18px rgba(0, 0, 0, 0.12);
+  z-index: 1000;
+  padding: 12px;
+  transition: left 0.25s ease-in-out;
+  overflow: auto;
+  border-right: 1px solid #eee;
+}
+
+.ai-drawer.open {
+  left: 0;
+}
+
+.ai-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 4px 12px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 8px;
+}
+
+.ai-drawer .close {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Fond sombre derrière le popup */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 999;
+}
+

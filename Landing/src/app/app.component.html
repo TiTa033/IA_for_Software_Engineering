@@ -1,1 +1,21 @@
+<!-- Zone où s'affichent les pages Angular -->
 <router-outlet></router-outlet>
+
+<!-- Bouton flottant ⚙️ -->
+<button class="gear-btn" (click)="drawerOpen = !drawerOpen" aria-label="Analyse IA">
+  🤖
+</button>
+
+<!-- Panneau latéral (popup) -->
+<div class="ai-drawer" [class.open]="drawerOpen">
+  <div class="ai-drawer__header">
+    <strong>Analyse du matériau</strong>
+    <button class="close" (click)="drawerOpen=false">✖</button>
+  </div>
+
+  <!-- Ton composant IA -->
+  <app-material-predictor></app-material-predictor>
+</div>
+
+<!-- Fond semi-transparent -->
+<div class="backdrop" *ngIf="drawerOpen" (click)="drawerOpen=false"></div>

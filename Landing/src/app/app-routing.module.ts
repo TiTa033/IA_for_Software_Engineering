@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { MaterialPredictorComponent } from './material-predictor/material-predictor.component';
+
+
 
 // Components
 import { LayoutComponent } from './layout/layout.component';
@@ -33,7 +36,8 @@ const routes: Routes = [
     path: '**',  // Wildcard route for handling unknown routes
     redirectTo: '', // Redirect unknown routes to the home page (Change if needed)
     pathMatch: 'full'
-  }
+  },
+  { path: 'material', component: MaterialPredictorComponent },
 ];
 
 @NgModule({

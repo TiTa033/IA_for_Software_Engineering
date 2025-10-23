@@ -18,4 +18,6 @@ export class AppComponent {
     this.render.setAttribute(link,'href','assets/css/colors/default.css');
     this.render.appendChild(document.head,link)
   }
+  drawerOpen = false; // 👈 ajoute ceci
+
 }

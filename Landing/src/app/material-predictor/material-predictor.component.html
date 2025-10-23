@@ -1,0 +1,20 @@
+<h3>Reconnaissance du matériau</h3>
+
+<input type="file" accept="image/*" (change)="onFile($event)" />
+
+<div *ngIf="preview" style="margin-top:1rem">
+  <img [src]="preview" style="max-width:260px;border-radius:8px"/>
+</div>
+
+<div *ngIf="loading">Analyse en cours…</div>
+
+<div *ngIf="result && !result.error" style="margin-top:1rem">
+  <b>Top-1 :</b> {{result.top1?.label}} ({{result.top1?.confidence | percent:'1.0-0'}})
+  <ul>
+    <li *ngFor="let t of result.top3">{{t.label}} — {{t.confidence | percent:'1.0-0'}}</li>
+  </ul>
+</div>
+
+<div *ngIf="result?.error" style="color:#b00020;margin-top:1rem">
+  {{result.error}}
+</div>
