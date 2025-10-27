@@ -1,0 +1,57 @@
+<div class="chat-container" [class.minimized]="isMinimized">
+  <!-- Chat Header -->
+  <div class="chat-header" (click)="toggleMinimize()">
+    <div class="chat-title">
+      <i class="mdi mdi-robot"></i>
+      <span>AI Assistant</span>
+    </div>
+    <div class="chat-controls">
+      <button class="minimize-btn" type="button">
+        <i class="mdi" [class.mdi-minus]="!isMinimized" [class.mdi-plus]="isMinimized"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Chat Messages -->
+  <div class="chat-messages" *ngIf="!isMinimized">
+    <div *ngFor="let message of messages" class="message" [class.user-message]="message.from === 'user'" [class.bot-message]="message.from === 'bot'">
+      <div class="message-content">
+        <div class="message-text">{{ message.text }}</div>
+        <div class="message-time">{{ formatTime(message.timestamp) }}</div>
+      </div>
+    </div>
+    
+    <!-- Loading indicator -->
+    <div *ngIf="loading" class="message bot-message">
+      <div class="message-content">
+        <div class="typing-indicator">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chat Input -->
+  <div class="chat-input" *ngIf="!isMinimized">
+    <div class="input-group">
+      <input 
+        type="text" 
+        [(ngModel)]="input" 
+        (keydown)="onKeyPress($event)"
+        placeholder="Ask about our olive oils..." 
+        [disabled]="loading"
+        class="form-control"
+      />
+      <button 
+        type="button" 
+        (click)="send()" 
+        [disabled]="!input.trim() || loading"
+        class="send-btn"
+      >
+        <i class="mdi mdi-send"></i>
+      </button>
+    </div>
+  </div>
+</div>

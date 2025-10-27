@@ -17,6 +17,7 @@ import { FooterComponent } from "./layout/footer/footer.component";
 import { CommonModule } from '@angular/common';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { MaterialPredictorComponent } from './material-predictor/material-predictor.component';
+import { ChatComponent } from './chat/chat.component';
 
 
 
@@ -30,6 +31,7 @@ import { MaterialPredictorComponent } from './material-predictor/material-predic
     LoginComponent,
     ResetpasswordComponent,
     MaterialPredictorComponent,  // 👈 ajoute-le ici
+    ChatComponent,
 
   ],
   imports: [
