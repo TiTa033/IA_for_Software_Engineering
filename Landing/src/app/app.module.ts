@@ -2,7 +2,7 @@ import {APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {HttpClientModule, provideHttpClient, withInterceptors} from '@angular/common/http';
 import { LayoutModule } from "@angular/cdk/layout";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -17,6 +17,7 @@ import { FooterComponent } from "./layout/footer/footer.component";
 import { CommonModule } from '@angular/common';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { MaterialPredictorComponent } from './material-predictor/material-predictor.component';
+import { RidgeGwpTestComponent } from './ridge-gwp-test/ridge-gwp-test.component';
 
 
 
@@ -30,6 +31,7 @@ import { MaterialPredictorComponent } from './material-predictor/material-predic
     LoginComponent,
     ResetpasswordComponent,
     MaterialPredictorComponent,  // 👈 ajoute-le ici
+    RidgeGwpTestComponent,
 
   ],
   imports: [
@@ -38,6 +40,7 @@ import { MaterialPredictorComponent } from './material-predictor/material-predic
     LayoutModule,
     BrowserAnimationsModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule,
     RegisterComponent, // ✅ Standalone component (imported, not declared)
     HeaderComponent,   // ✅ Ensure these components exist

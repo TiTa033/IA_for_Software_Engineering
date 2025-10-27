@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/vision")
 public class VisionHealthController {
 
-    @GetMapping("/health")
+    @GetMapping("/status")
     public ResponseEntity<String> health() {
         return ResponseEntity.ok("{\"status\":\"spring-ok\"}");
     }

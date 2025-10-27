@@ -1,0 +1,163 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">Ridge-GWP Carbon Footprint Predictor</h3>
+          <p class="text-muted mb-0">Test your packaging carbon footprint prediction model</p>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="gwpForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="weight" class="form-label">Weight (kg)</label>
+                <input 
+                  type="number" 
+                  class="form-control" 
+                  id="weight" 
+                  formControlName="weight"
+                  step="0.01"
+                  min="0.01"
+                  [class.is-invalid]="gwpForm.get('weight')?.invalid && gwpForm.get('weight')?.touched">
+                <div class="invalid-feedback" *ngIf="getFieldError('weight')">
+                  {{ getFieldError('weight') }}
+                </div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <label for="length" class="form-label">Length (cm)</label>
+                <input 
+                  type="number" 
+                  class="form-control" 
+                  id="length" 
+                  formControlName="length"
+                  step="0.01"
+                  min="0.01"
+                  [class.is-invalid]="gwpForm.get('length')?.invalid && gwpForm.get('length')?.touched">
+                <div class="invalid-feedback" *ngIf="getFieldError('length')">
+                  {{ getFieldError('length') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="width" class="form-label">Width (cm)</label>
+                <input 
+                  type="number" 
+                  class="form-control" 
+                  id="width" 
+                  formControlName="width"
+                  step="0.01"
+                  min="0.01"
+                  [class.is-invalid]="gwpForm.get('width')?.invalid && gwpForm.get('width')?.touched">
+                <div class="invalid-feedback" *ngIf="getFieldError('width')">
+                  {{ getFieldError('width') }}
+                </div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <label for="height" class="form-label">Height (cm)</label>
+                <input 
+                  type="number" 
+                  class="form-control" 
+                  id="height" 
+                  formControlName="height"
+                  step="0.01"
+                  min="0.01"
+                  [class.is-invalid]="gwpForm.get('height')?.invalid && gwpForm.get('height')?.touched">
+                <div class="invalid-feedback" *ngIf="getFieldError('height')">
+                  {{ getFieldError('height') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="distanceKm" class="form-label">Distance (km)</label>
+                <input 
+                  type="number" 
+                  class="form-control" 
+                  id="distanceKm" 
+                  formControlName="distanceKm"
+                  step="0.01"
+                  min="0.01"
+                  [class.is-invalid]="gwpForm.get('distanceKm')?.invalid && gwpForm.get('distanceKm')?.touched">
+                <div class="invalid-feedback" *ngIf="getFieldError('distanceKm')">
+                  {{ getFieldError('distanceKm') }}
+                </div>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <label for="material" class="form-label">Material</label>
+                <select 
+                  class="form-select" 
+                  id="material" 
+                  formControlName="material"
+                  [class.is-invalid]="gwpForm.get('material')?.invalid && gwpForm.get('material')?.touched">
+                  <option value="">Select Material</option>
+                  <option *ngFor="let material of materials" [value]="material.value">
+                    {{ material.label }}
+                  </option>
+                </select>
+                <div class="invalid-feedback" *ngIf="getFieldError('material')">
+                  {{ getFieldError('material') }}
+                </div>
+              </div>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button 
+                type="button" 
+                class="btn btn-outline-primary me-md-2" 
+                (click)="onOptimize()"
+                [disabled]="loading || gwpForm.invalid">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                Optimize Weight
+              </button>
+              <button 
+                type="submit" 
+                class="btn btn-primary"
+                [disabled]="loading || gwpForm.invalid">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status"></span>
+                Predict GWP
+              </button>
+            </div>
+          </form>
+
+          <!-- Error Message -->
+          <div *ngIf="error" class="alert alert-danger mt-3" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            {{ error }}
+          </div>
+
+          <!-- Prediction Result -->
+          <div *ngIf="predictionResult" class="alert alert-success mt-3" role="alert">
+            <h5 class="alert-heading">
+              <i class="fas fa-leaf me-2"></i>
+              GWP Prediction Result
+            </h5>
+            <p class="mb-0">
+              <strong>Predicted GWP:</strong> {{ predictionResult.gwp | number:'1.3-3' }} kg CO₂ equivalent
+            </p>
+          </div>
+
+          <!-- Optimization Result -->
+          <div *ngIf="optimizationResult" class="alert alert-info mt-3" role="alert">
+            <h5 class="alert-heading">
+              <i class="fas fa-chart-line me-2"></i>
+              Optimization Result
+            </h5>
+            <p class="mb-1">
+              <strong>Optimal Weight:</strong> {{ optimizationResult.optiWeight | number:'1.3-3' }} kg
+            </p>
+            <p class="mb-0">
+              <strong>Optimized GWP:</strong> {{ optimizationResult.optiGwp | number:'1.3-3' }} kg CO₂ equivalent
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

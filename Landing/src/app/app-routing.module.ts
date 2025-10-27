@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MaterialPredictorComponent } from './material-predictor/material-predictor.component';
+import { RidgeGwpTestComponent } from './ridge-gwp-test/ridge-gwp-test.component';
 
 
 
@@ -32,12 +33,13 @@ const routes: Routes = [
     path: 'reset-password',
     component: ResetpasswordComponent
   },
+  { path: 'material', component: MaterialPredictorComponent },
+  { path: 'ridge-gwp', component: RidgeGwpTestComponent },
   {
     path: '**',  // Wildcard route for handling unknown routes
     redirectTo: '', // Redirect unknown routes to the home page (Change if needed)
     pathMatch: 'full'
-  },
-  { path: 'material', component: MaterialPredictorComponent },
+  }
 ];
 
 @NgModule({
